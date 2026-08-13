@@ -2,7 +2,9 @@ package com.techfinder.localserviceprovider.presentation.homescreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,11 +27,16 @@ fun HomeScreen(){
             fontSize = 45.sp,
             color = Color.Black
         )
+
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Welcome Hamza",
             fontSize = 45.sp,
             color = Color.Black
         )
+
+
+
 
     }
 }
