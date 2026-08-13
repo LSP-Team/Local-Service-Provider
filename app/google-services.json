@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "940794530696",
+    "firebase_url": "https://localservicefinder-5f1e6-default-rtdb.firebaseio.com",
+    "project_id": "localservicefinder-5f1e6",
+    "storage_bucket": "localservicefinder-5f1e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940794530696:android:9cf00ac54858a448d4083d",
+        "android_client_info": {
+          "package_name": "com.techfinder.localserviceprovider"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJsJCMlBspd3DTGJK65YKiVn8cgHKaaLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
