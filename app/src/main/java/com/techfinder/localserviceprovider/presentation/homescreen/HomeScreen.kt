@@ -34,6 +34,11 @@ fun HomeScreen(){
             fontSize = 45.sp,
             color = Color.Black
         )
+        Text(
+            text = "Welcome Hamza",
+            fontSize = 45.sp,
+            color = Color.Black
+        )
 
 
 
