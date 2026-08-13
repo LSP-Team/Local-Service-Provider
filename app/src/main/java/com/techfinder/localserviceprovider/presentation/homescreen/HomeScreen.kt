@@ -26,7 +26,7 @@ fun HomeScreen(){
             color = Color.Black
         )
         Text(
-            text = "Home Screen",
+            text = "Welcome Hamza",
             fontSize = 45.sp,
             color = Color.Black
         )
