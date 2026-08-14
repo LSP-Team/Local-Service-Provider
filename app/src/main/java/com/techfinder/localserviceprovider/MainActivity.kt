@@ -9,10 +9,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.techfinder.localserviceprovider.presentation.homescreen.HomeScreen
+import com.techfinder.localserviceprovider.presentation.screens.homescreen.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
-import com.techfinder.localserviceprovider.presentation.registrationscreen.LoginScreen
-import com.techfinder.localserviceprovider.presentation.registrationscreen.OtpScreen
+import com.techfinder.localserviceprovider.presentation.screens.registrationscreen.LoginScreen
+import com.techfinder.localserviceprovider.presentation.screens.registrationscreen.OtpScreen
 import com.techfinder.localserviceprovider.ui.theme.LocalServiceProviderTheme
 
 @AndroidEntryPoint

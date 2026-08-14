@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.presentation.homescreen
+package com.techfinder.localserviceprovider.presentation.screens.homescreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

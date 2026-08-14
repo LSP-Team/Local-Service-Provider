@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.presentation.registrationscreen
+package com.techfinder.localserviceprovider.presentation.screens.registrationscreen
 
 import android.widget.Toast
 import androidx.compose.foundation.background
