@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.presentation.splashscreen
+package com.techfinder.localserviceprovider.presentation.screens.splashscreen
 
 import android.window.SplashScreen
 import androidx.compose.foundation.Image

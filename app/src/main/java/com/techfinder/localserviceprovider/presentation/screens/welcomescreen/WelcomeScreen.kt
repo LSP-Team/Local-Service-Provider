@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.presentation.welcomescreen
+package com.techfinder.localserviceprovider.presentation.screens.welcomescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
