@@ -34,6 +34,12 @@ fun HomeScreen(){
             fontSize = 45.sp,
             color = Color.Black
         )
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Hamza aa gaya",
+            fontSize = 45.sp,
+            color = Color.Black
+        )
 
 
 
