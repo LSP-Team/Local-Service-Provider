@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.presentation.components
+package com.techfinder.localserviceprovider.presentation.screens.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.domain.usecases
+package com.techfinder.localserviceprovider.domain.usecases.authusecase
 
 import android.app.Activity
 import com.techfinder.localserviceprovider.domain.repository.AuthRepository

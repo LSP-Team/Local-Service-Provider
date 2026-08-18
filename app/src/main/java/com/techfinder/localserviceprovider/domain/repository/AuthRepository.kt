@@ -16,7 +16,7 @@ interface AuthRepository {
         verificationId: String,
         otp: String,
         user: PhoneAuthUser,
-        onSuccess: () -> Unit,
+        onSuccess: (PhoneAuthUser) -> Unit,
         onError: (String) -> Unit
     )
 

@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.domain.usecases
+package com.techfinder.localserviceprovider.domain.usecases.authusecase
 
 import com.techfinder.localserviceprovider.domain.model.PhoneAuthUser
 import com.techfinder.localserviceprovider.domain.repository.AuthRepository
@@ -12,9 +12,15 @@ class VerifyOtpUseCase @Inject constructor(
         verificationId: String,
         otp: String,
         user: PhoneAuthUser,
-        onSuccess: () -> Unit,
+        onSuccess: (PhoneAuthUser) -> Unit,
         onError: (String) -> Unit
     ){
-        repository.verifyOtp(verificationId, otp, user, onSuccess, onError)
+        repository.verifyOtp(
+            verificationId = verificationId,
+            otp = otp,
+            user = user,
+            onSuccess = onSuccess,
+            onError = onError
+         )
     }
 }
