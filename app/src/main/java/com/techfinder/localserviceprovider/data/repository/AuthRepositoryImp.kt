@@ -54,7 +54,7 @@ class AuthRepositoryImp @Inject constructor(
         verificationId: String,
         otp: String,
         user: PhoneAuthUser,
-        onSuccess: () -> Unit,
+        onSuccess: (PhoneAuthUser) -> Unit,
         onError: (String) -> Unit
     ) {
         val credential = PhoneAuthProvider.getCredential(verificationId, otp)
@@ -62,14 +62,22 @@ class AuthRepositoryImp @Inject constructor(
         auth.signInWithCredential(credential)
             .addOnSuccessListener { result ->
 
-                val uid = result.user?.uid ?: return@addOnSuccessListener
+                val uid = result.user?.uid
+                if (uid == null) {
+                    onError("Authentication failed: User not found")
+                    return@addOnSuccessListener
+                }
 
-                val updatedUser = user.copy(uid = uid)
+               // val updatedUser = user.copy(uid = uid)
+                val updatedUser = user.copy(
+                    uid = uid,
+                    phone = result.user?.phoneNumber ?: user.phone
+                )
 
                 firestore.collection("users")
                     .document(uid)
                     .set(updatedUser)
-                    .addOnSuccessListener { onSuccess() }
+                    .addOnSuccessListener { onSuccess(updatedUser) }
                     .addOnFailureListener { onError(it.message ?: "Save failed") }
             }
             .addOnFailureListener {

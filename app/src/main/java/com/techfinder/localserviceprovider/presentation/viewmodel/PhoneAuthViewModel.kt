@@ -5,8 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.techfinder.localserviceprovider.domain.model.PhoneAuthUser
-import com.techfinder.localserviceprovider.domain.usecases.SendOtpUseCase
-import com.techfinder.localserviceprovider.domain.usecases.VerifyOtpUseCase
+import com.techfinder.localserviceprovider.domain.usecases.authusecase.SendOtpUseCase
+import com.techfinder.localserviceprovider.domain.usecases.authusecase.VerifyOtpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
