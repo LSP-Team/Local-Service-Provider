@@ -44,7 +44,7 @@ class PhoneAuthViewModel @Inject constructor(
         }
     }
 
-    fun verifyOtp(otp: String, phoneNumber: String, role: String){
+    fun verifyOtp(otp: String, phoneNumber: String){
         val currentVerificationId = verificationId ?: run {
             _authState.value = AuthState.Error("Verification session expired. Please resend OTP")
             return
@@ -54,7 +54,6 @@ class PhoneAuthViewModel @Inject constructor(
         viewModelScope.launch {
             val user = PhoneAuthUser(
                 phone = phoneNumber,
-                role = role
             )
 
             verifyOtpUseCase(

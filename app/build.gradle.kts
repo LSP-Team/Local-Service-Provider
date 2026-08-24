@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.google.gms.google.services)
+
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -73,4 +75,19 @@ dependencies {
 
     // Material Extended Icons (Optional - required if using icons like Star, Search, etc.)
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
+
+    // coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
+    // Fused Location Provider
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+
+    // Accompanist Permissions for Compose
+    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
+
+    // Jetpack Compose integration
+    implementation("androidx.navigation:navigation-compose:2.8.8")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+
+
 }
