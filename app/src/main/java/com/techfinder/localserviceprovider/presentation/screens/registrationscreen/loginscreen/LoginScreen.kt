@@ -1,4 +1,4 @@
-package com.techfinder.localserviceprovider.presentation.screens.registrationscreen
+package com.techfinder.localserviceprovider.presentation.screens.registrationscreen.loginscreen
 
 import android.app.Activity
 import android.widget.Toast
@@ -23,15 +23,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import com.techfinder.localserviceprovider.R
 import com.techfinder.localserviceprovider.presentation.viewmodel.AuthState
 import com.techfinder.localserviceprovider.presentation.viewmodel.PhoneAuthViewModel
-import com.techfinder.localserviceprovider.ui.theme.darkBlue
+import com.techfinder.localserviceprovider.ui.theme.*
 
 @Composable
 fun LoginScreen(
     onOtpSent: (String) -> Unit,
-    viewModel: PhoneAuthViewModel = hiltViewModel()
+    viewModel: PhoneAuthViewModel = hiltViewModel(),
+    navHostController: NavHostController
 ) {
 
     val context = LocalContext.current
@@ -43,16 +45,25 @@ fun LoginScreen(
     var phoneNumber by remember { mutableStateOf("") }
 
     LaunchedEffect(authState) {
+
         when (val state = authState) {
 
             is AuthState.CodeSent -> {
                 val fullPhone = "$countryCode${phoneNumber.trim()}"
+
                 onOtpSent(fullPhone)
+
                 viewModel.resetState()
             }
 
             is AuthState.Error -> {
-                Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(
+                    context,
+                    state.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 viewModel.resetState()
             }
 
@@ -63,69 +74,116 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
-            .padding(horizontal = 24.dp),
+            .background(AppBackground)
+            .padding(horizontal = 24.dp)
+            .windowInsetsPadding(WindowInsets.statusBars)
+            .windowInsetsPadding(WindowInsets.navigationBars),
+
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Spacer(modifier = Modifier.height(80.dp))
+        Spacer(
+            modifier = Modifier.height(80.dp)
+        )
 
         Text(
             text = "Enter your phone number",
             fontSize = 22.sp,
             fontWeight = FontWeight.SemiBold,
-            color = darkBlue
+            color = TextPrimary
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(
+            modifier = Modifier.height(32.dp)
+        )
 
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
 
+            // Country code
             OutlinedTextField(
                 value = countryCode,
-                onValueChange = { countryCode = it },
+                onValueChange = {
+                    countryCode = it
+                },
                 modifier = Modifier.width(90.dp),
                 singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = darkBlue,
-                    unfocusedBorderColor = darkBlue.copy(alpha = 0.6f)
-                )
+
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Phone
+                ),
+
+                colors = loginTextFieldColors()
             )
 
+            // Phone number
             OutlinedTextField(
                 value = phoneNumber,
-                onValueChange = { phoneNumber = it.filter { ch -> ch.isDigit() } },
+                onValueChange = {
+                    phoneNumber = it.filter { ch ->
+                        ch.isDigit()
+                    }
+                },
                 modifier = Modifier.weight(1f),
-                placeholder = { Text("Phone Number") },
+                placeholder = {
+                    Text(
+                        text = "Phone Number"
+                    )
+                },
                 singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = darkBlue,
-                    unfocusedBorderColor = darkBlue.copy(alpha = 0.6f)
-                )
+
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Phone
+                ),
+
+                colors = loginTextFieldColors()
             )
         }
 
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(
+            modifier = Modifier.height(28.dp)
+        )
 
         if (authState is AuthState.Loading) {
-            CircularProgressIndicator(color = darkBlue)
+
+            CircularProgressIndicator(
+                color = PrimaryBlue
+            )
+
         } else {
+
             Button(
                 onClick = {
-                    val fullPhone = "$countryCode${phoneNumber.trim()}"
+
+                    val fullPhone =
+                        "$countryCode${phoneNumber.trim()}"
+
                     activity?.let {
-                        viewModel.sendOtp(it, fullPhone)
+                        viewModel.sendOtp(
+                            it,
+                            fullPhone
+                        )
                     }
                 },
-                enabled = phoneNumber.trim().length == 10,
+
+                enabled = phoneNumber.length == 10,
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
+
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = darkBlue)
+
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = PrimaryBlue,
+                    contentColor = TextOnPrimary,
+                    disabledContainerColor = DisabledContainer,
+                    disabledContentColor = DisabledContent
+                )
             ) {
+
                 Text(
                     text = "Send OTP",
                     fontSize = 18.sp,
@@ -134,51 +192,87 @@ fun LoginScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(
+            modifier = Modifier.height(36.dp)
+        )
 
-        Text(text = "Or continue with")
+        Text(
+            text = "Or continue with",
+            color = TextSecondary
+        )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(
+            modifier = Modifier.height(12.dp)
+        )
 
-        AuthOption(image = R.drawable.google)
+        AuthOption(
+            image = R.drawable.google
+        )
     }
 }
 
+
+@Composable
+private fun loginTextFieldColors() =
+    OutlinedTextFieldDefaults.colors(
+
+        focusedTextColor = TextPrimary,
+        unfocusedTextColor = TextPrimary,
+
+        focusedPlaceholderColor = TextHint,
+        unfocusedPlaceholderColor = TextHint,
+
+        focusedBorderColor = BorderFocused,
+        unfocusedBorderColor = BorderDefault,
+
+        cursorColor = PrimaryBlue,
+
+        focusedContainerColor = SurfaceCard,
+        unfocusedContainerColor = SurfaceCard
+    )
 @Composable
 fun AuthOption(
     modifier: Modifier = Modifier,
     image: Int,
     tint: Color? = null,
     contentDescription: String? = null
-){
+) {
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.onBackground.copy(0.2f),
+                color = BorderDefault,
                 shape = RoundedCornerShape(14.dp)
             )
-            .clip(RoundedCornerShape(14.dp))
-            .clickable{}
-            .padding(horizontal = 35.dp, vertical = 12.dp),
+            .clip(
+                RoundedCornerShape(14.dp)
+            )
+            .clickable { }
+            .padding(
+                horizontal = 35.dp,
+                vertical = 12.dp
+            ),
+
         contentAlignment = Alignment.Center
     ) {
 
-        if (tint != null){
+        if (tint != null) {
+
             Icon(
                 painter = painterResource(image),
                 contentDescription = contentDescription,
                 tint = tint,
                 modifier = Modifier.size(30.dp)
             )
-        }else{
+
+        } else {
+
             Image(
                 painter = painterResource(image),
                 contentDescription = contentDescription,
                 modifier = Modifier.size(30.dp)
             )
-
         }
     }
 }

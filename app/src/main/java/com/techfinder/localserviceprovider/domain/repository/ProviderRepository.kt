@@ -1,5 +1,6 @@
 package com.techfinder.localserviceprovider.domain.repository
 
+import android.net.Uri
 import com.techfinder.localserviceprovider.domain.model.ProviderModel
 import kotlinx.coroutines.flow.Flow
 
@@ -17,4 +18,10 @@ interface ProviderRepository {
     fun getProviderFlow(
         uid: String
     ): Flow<ProviderModel?>
+
+    suspend fun uploadProfileImage(
+        uid: String,
+        imageUri: Uri
+    ): Result<String>
+
 }
