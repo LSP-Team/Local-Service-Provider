@@ -86,41 +86,10 @@ fun ProviderBasicInfoScreen(
             Spacer(Modifier.height(8.dp))
 
             // Top bar
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                IconButton(
-                    onClick = onBack,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(SurfaceRaised),
-                ) {
-                    Icon(
-                        imageVector        = Icons.Default.ArrowBack,
-                        contentDescription = "Back",
-                        tint               = TextPrimary,
-                        modifier           = Modifier.size(20.dp),
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                // Step
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(20.dp))
-                        .background(PrimaryBlueLight)
-                        .padding(horizontal = 12.dp, vertical = 4.dp),
-                ) {
-                    Text(
-                        text     = "STEP 1 OF 2",
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Medium,
-                        color    = PrimaryBlue,
-                        letterSpacing = 1.sp,
-                    )
-                }
-            }
+            TopAppBarDefaults(
+                onBack = onBack,
+                text = "STEP 1 OF 2"
+            )
 
             Spacer(Modifier.height(24.dp))
 
@@ -292,49 +261,6 @@ fun ProviderBasicInfoScreen(
         }
     }
 }
-
-
-@Composable
-fun StepProgressBar(
-    currentStep: Int,
-    totalSteps:  Int,
-    modifier:    Modifier = Modifier,
-) {
-    Row(
-        modifier              = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-    ) {
-        repeat(totalSteps) { idx ->
-            val filled = idx < currentStep
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(3.dp)
-                    .clip(RoundedCornerShape(2.dp))
-                    .background(
-                        if (filled) PrimaryBlue else BorderSubtle
-                    )
-            )
-        }
-    }
-}
-
-
-@Composable
-fun FieldLabel(
-    text:     String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text          = text,
-        fontSize      = 10.sp,
-        fontWeight    = FontWeight.Medium,
-        color         = TextTertiary,
-        letterSpacing = 1.5.sp,
-        modifier      = modifier.padding(bottom = 7.dp),
-    )
-}
-
 
 @Composable
 fun ProviderTextField(
