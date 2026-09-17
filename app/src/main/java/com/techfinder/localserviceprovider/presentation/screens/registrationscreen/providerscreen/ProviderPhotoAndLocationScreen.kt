@@ -1,5 +1,6 @@
 package com.techfinder.localserviceprovider.presentation.screens.registrationscreen.providerscreen
 
+import BlurredAnimatedText
 import android.Manifest
 import android.net.Uri
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +30,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddLocation
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material3.Button
@@ -70,11 +73,14 @@ import com.techfinder.localserviceprovider.presentation.viewmodel.ProviderRegist
 import com.techfinder.localserviceprovider.ui.theme.AppBackground
 import com.techfinder.localserviceprovider.ui.theme.BorderStrong
 import com.techfinder.localserviceprovider.ui.theme.PrimaryBlue
+import com.techfinder.localserviceprovider.ui.theme.PrimaryBlueDark
 import com.techfinder.localserviceprovider.ui.theme.PrimaryBlueGlow
 import com.techfinder.localserviceprovider.ui.theme.PrimaryBlueLight
 import com.techfinder.localserviceprovider.ui.theme.StatusSuccessLight
+import com.techfinder.localserviceprovider.ui.theme.SurfaceHighlight
 import com.techfinder.localserviceprovider.ui.theme.SurfaceRaised
 import com.techfinder.localserviceprovider.ui.theme.TextHint
+import com.techfinder.localserviceprovider.ui.theme.TextOnPrimary
 import com.techfinder.localserviceprovider.ui.theme.TextPrimary
 
 @Composable
@@ -252,10 +258,15 @@ fun ProviderPhotoAndLocationScreen(
                     .clip(CircleShape),
                 contentScale = ContentScale.Crop
             )
+
+            FieldLabel(
+                text = "PROFILE PHOTO"
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        FieldLabel(text = "SERVICE ADDRESS")
         OutlinedTextField(
             value = address,
             onValueChange = { address = it },
@@ -279,25 +290,84 @@ fun ProviderPhotoAndLocationScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedButton(
-            onClick = {
-                locationPermissionLauncher.launch(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    )
-                )
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            if (isFetchingLocation) {
-                LoadingIndicator(2.dp, Modifier.size(20.dp))
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Detecting location...")
-            } else {
-                Icon(imageVector = Icons.Default.MyLocation, contentDescription = null)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Use my current location")
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(125.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .border(width = 2.dp, color = BorderStrong, shape = RoundedCornerShape(16.dp))
+                .background(PrimaryBlueDark)
+        ){
+            Column(
+                modifier = Modifier
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.Center
+
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(height = 45.dp, width = 45.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .border(width = 2.dp, color = BorderStrong, shape = RoundedCornerShape(4.dp))
+                            .background(PrimaryBlueGlow),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.AddLocation,
+                            contentDescription = null,
+                            tint = Color.LightGray
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(14.dp))
+
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Use current location",
+                            color = TextOnPrimary,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        Text(
+                            text = "Auto-fills your GPS location",
+                            color = TextHint,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(6.dp))
+
+                OutlinedButton(
+                    onClick = {
+                        locationPermissionLauncher.launch(
+                            arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    if (isFetchingLocation) {
+                        BlurredAnimatedText(
+                            text = "Detecting location...",
+                        )
+                    } else {
+                        Icon(imageVector = Icons.Default.MyLocation, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Use my location")
+                    }
+                }
+
             }
         }
 
